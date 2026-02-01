@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a90e2">
+	<link rel="icon" href="icon.png" type="image/x-icon">
+    <title>Zадача</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="kanban-app">
+    <!-- Сайдбар -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Мои доски</h2>
+            <button id="theme-toggle" class="theme-toggle" title="Переключить тему">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+
+        <div class="deadlines-tab">
+            <button id="deadlines-btn" class="sidebar-btn">
+                <i class="fas fa-clock"></i> Сроки
+            </button>
+        </div>
+
+        <ul id="boards-list">
+            <!-- Доски и папки будут загружены сюда -->
+        </ul>
+
+        <div class="sidebar-buttons">
+            <button id="add-board-btn" class="sidebar-btn">
+                <i class="fas fa-plus"></i> Новая доска
+            </button>
+            <button id="add-folder-btn" class="sidebar-btn">
+                <i class="fas fa-folder-plus"></i> Новая папка
+            </button>
+        </div>
+
+        <div class="export-import-section">
+            <button id="export-data-btn" class="export-btn">
+                <i class="fas fa-download"></i> Экспорт базы
+            </button>
+            <button id="import-data-btn" class="import-btn">
+                <i class="fas fa-upload"></i> Импорт базы
+            </button>
+            <button id="telegram-settings-btn" class="telegram-btn">
+                <i class="fab fa-telegram-plane"></i> Настройки Telegram
+            </button>
+        </div>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <header class="board-header">
+            <h1 id="board-title" class="board-title">Добро пожаловать!</h1>
+            <button id="add-column-btn" class="add-column-btn">
+                <i class="fas fa-plus"></i> Колонку
+            </button>
+        </header>
+
+        <div id="board" class="board">
+            <!-- Колонки и задачи будут загружены сюда -->
+        </div>
+    </main>
+
+    <!-- Модальное окно выбора даты -->
+    <div id="datepicker-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="far fa-calendar-alt"></i> Выберите дату дедлайна</h3>
+                <button class="close-modal" title="Закрыть">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="date" id="deadline-date" />
+                <div class="date-actions">
+                    <button id="clear-deadline" class="btn-clear">
+                        <i class="fas fa-times"></i> Очистить
+                    </button>
+                    <button id="set-deadline" class="btn-set">
+                        <i class="fas fa-check"></i> Установить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно импорта -->
+    <div id="import-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-upload"></i> Импорт данных</h3>
+                <button class="close-modal" title="Закрыть">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Внимание! Импорт заменит все текущие данные. Рекомендуется предварительно экспортировать текущую базу.</p>
+                </div>
+                <div id="file-drop-area" class="file-upload-area">
+                    <i class="fas fa-file-import"></i>
+                    <p>Перетащите JSON файл сюда или</p>
+                    <button id="browse-files-btn" class="browse-btn">
+                        <i class="fas fa-folder-open"></i> Выберите файл
+                    </button>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;" />
+                </div>
+                <div class="import-actions">
+                    <button id="cancel-import" class="btn-clear">
+                        <i class="fas fa-times"></i> Отмена
+                    </button>
+                    <button id="confirm-import" class="btn-set" disabled>
+                        <i class="fas fa-check"></i> Импортировать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно настроек Telegram -->
+    <div id="telegram-settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fab fa-telegram-plane"></i> Настройки Telegram бота</h3>
+                <button class="close-modal" title="Закрыть">&times;</button>
+            </div>
+            <div class="modal-body telegram-settings">
+                <div class="telegram-instruction">
+                    <h4><i class="fas fa-info-circle"></i> Инструкция по созданию бота:</h4>
+                    <ol>
+                        <li>Откройте Telegram и найдите <code>@BotFather</code></li>
+                        <li>Отправьте команду <code>/newbot</code></li>
+                        <li>Придумайте имя бота (например: My Kanban Notifier)</li>
+                        <li>Придумайте username бота (должен заканчиваться на bot, например: my_kanban_notifier_bot)</li>
+                        <li>Скопируйте токен, который вам выдаст BotFather (выглядит примерно так: <code>1234567890:ABCdefGHIjklMNOpqrsTUVwxyz</code>)</li>
+                        <li>Найдите созданного бота в Telegram и отправьте ему команду <code>/start</code></li>
+                        <li>Скопируйте ваш Chat ID (нажмите кнопку "Получить Chat ID" ниже)</li>
+                        <li>Вставьте токен и Chat ID в поля ниже</li>
+                    </ol>
+                </div>
+
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label for="bot-token"><i class="fas fa-key"></i> Токен бота:</label>
+                        <input type="password" id="bot-token" placeholder="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz" />
+                        <button type="button" id="toggle-token-visibility" class="toggle-visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="chat-id"><i class="fas fa-user"></i> Chat ID:</label>
+                        <input type="text" id="chat-id" placeholder="-123456789" />
+                        <button type="button" id="get-chat-id" class="secondary-btn">
+                            <i class="fas fa-question-circle"></i> Как получить Chat ID
+                        </button>
+                    </div>
+                    <div class="test-connection">
+                        <button id="test-bot-connection" class="secondary-btn">
+                            <i class="fas fa-plug"></i> Проверить подключение
+                        </button>
+                        <span id="connection-status" class="disconnected">Не подключено</span>
+                    </div>
+                </div>
+
+                <div class="notification-settings">
+                    <h4><i class="fas fa-bell"></i> Настройки уведомлений:</h4>
+                    
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="overdue-notifications" />
+                            <i class="fas fa-exclamation-triangle"></i> Уведомления о просроченных задачах
+                        </label>
+                        <div class="frequency-settings">
+                            <span>Периодичность:</span>
+                            <select id="overdue-frequency">
+                                <option value="1">Каждый час</option>
+                                <option value="6">Каждые 6 часов</option>
+                                <option value="12">Каждые 12 часов</option>
+                                <option value="24" selected>Раз в день</option>
+                                <option value="168">Раз в неделю</option>
+                            </select>
+                            <span class="time-unit">часов</span>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="today-notifications" checked />
+                            <i class="fas fa-calendar-day"></i> Уведомления о задачах на сегодня
+                        </label>
+                        <div class="frequency-settings">
+                            <span>Периодичность:</span>
+                            <select id="today-frequency">
+                                <option value="1">Каждый час</option>
+                                <option value="3">Каждые 3 часа</option>
+                                <option value="6" selected>Каждые 6 часов</option>
+                                <option value="12">Каждые 12 часов</option>
+                            </select>
+                            <span class="time-unit">часов</span>
+                            <span>Время первого уведомления:</span>
+                            <input type="time" id="notify-time" value="09:00" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bot-info">
+                    <h4><i class="fas fa-robot"></i> Что умеет бот:</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Отправляет уведомления о просроченных задачах</li>
+                        <li><i class="fas fa-check-circle"></i> Отправляет уведомления о задачах на сегодня</li>
+                        <li><i class="fas fa-check-circle"></i> Не уведомляет о выполненных задачах (отмеченных галочкой)</li>
+                        <li><i class="fas fa-check-circle"></i> Не уведомляет об удаленных задачах</li>
+                        <li><i class="fas fa-check-circle"></i> Отправляет уведомления по выбранному расписанию</li>
+                    </ul>
+                </div>
+
+                <div class="telegram-actions">
+                    <button id="disable-telegram" class="btn-clear">
+                        <i class="fas fa-power-off"></i> Отключить уведомления
+                    </button>
+                    <button id="save-telegram-settings" class="btn-set">
+                        <i class="fas fa-save"></i> Сохранить настройки
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script-core.js"></script>
+    <script src="script-t.js"></script>
+</body>
+</html>

@@ -1,0 +1,2059 @@
+/* CSS переменные для светлой темы */
+:root {
+--bg-color: #f5f7fa;
+--sidebar-bg: #eef2f7;
+--main-bg: #fff;
+--text-color: #333;
+--border-color: #ddd;
+--accent-color: #4a90e2;
+--accent-hover: #357ae8;
+--success-color: #28a745;
+--success-hover: #218838;
+--danger-color: #d9534f;
+--danger-hover: #c9302c;
+--warning-color: #ffc107;
+--warning-hover: #e0a800;
+--card-bg: #fff;
+--task-bg: #fff;
+--column-bg: #eef2f7;
+--folder-bg: #dde6f0;
+--folder-board-bg: #e8edf5;
+--shadow-color: rgba(0,0,0,0.1);
+--scrollbar-track: #f1f1f1;
+--scrollbar-thumb: #888;
+--input-bg: #fff;
+--input-border: #4a90e2;
+--placeholder-color: #888;
+--modal-overlay: rgba(0,0,0,0.5);
+--compact-padding: 8px;
+--compact-margin: 4px;
+}
+/* CSS переменные для темной темы */
+.dark-theme {
+--bg-color: #1a1a1a;
+--sidebar-bg: #2d2d2d;
+--main-bg: #1a1a1a;
+--text-color: #ffffff;
+--border-color: #444;
+--accent-color: #4299e1;
+--accent-hover: #63b3ed;
+--success-color: #38a169;
+--success-hover: #2f855a;
+--danger-color: #e53e3e;
+--danger-hover: #c53030;
+--warning-color: #d69e2e;
+--warning-hover: #b7791f;
+--card-bg: #2d2d2d;
+--task-bg: #333;
+--column-bg: #2d2d2d;
+--folder-bg: #3a3a3a;
+--folder-board-bg: #444;
+--shadow-color: rgba(0,0,0,0.3);
+--scrollbar-track: #2d2d2d;
+--scrollbar-thumb: #666;
+--input-bg: #333;
+--input-border: #4299e1;
+--placeholder-color: #aaa;
+--modal-overlay: rgba(0,0,0,0.7);
+}
+{
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body.kanban-app {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+display: flex;
+height: 100vh;
+overflow: hidden;
+background-color: var(--bg-color);
+color: var(--text-color);
+transition: background-color 0.3s, color 0.3s;
+width: 100%;
+max-width: 100%;
+font-size: 14px;
+}
+/* Сайдбар - компактный */
+/* Исправление полосы прокрутки при наведении на элементы сайдбара /
+/ Исправление полосы прокрутки при наведении на элементы сайдбара */
+.sidebar,
+#boards-list,
+#boards-list li {
+overflow-x: hidden !important;
+}
+/* Улучшение производительности рендеринга */
+.column {
+contain: strict;
+}
+.task {
+content-visibility: auto;
+contain-intrinsic-size: 40px;
+}
+/* Улучшение для темной темы */
+.dark-theme {
+scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+.sidebar {
+width: 250px;
+background: var(--sidebar-bg);
+border-right: 1px solid var(--border-color);
+padding: var(--compact-padding);
+display: flex;
+flex-direction: column;
+gap: 8px;
+overflow-y: auto;
+transition: background-color 0.3s, border-color 0.3s;
+flex-shrink: 0;
+}
+.sidebar-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 4px;
+padding-bottom: 4px;
+border-bottom: 1px solid var(--border-color);
+}
+.sidebar h2 {
+font-size: 1rem;
+color: var(--text-color);
+margin: 0;
+font-weight: 600;
+}
+.theme-toggle {
+background: var(--accent-color);
+border: none;
+font-size: 0.9rem;
+cursor: pointer;
+color: white;
+padding: 6px;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background-color 0.2s, transform 0.2s;
+}
+.theme-toggle:hover {
+background-color: var(--accent-hover);
+transform: rotate(30deg);
+}
+/* Вкладка Сроки - компактная */
+.deadlines-tab {
+margin-bottom: 4px;
+padding-bottom: 4px;
+border-bottom: 1px solid var(--border-color);
+}
+#deadlines-btn {
+width: 100%;
+padding: 8px;
+background: linear-gradient(135deg, var(--warning-color), #ff9800);
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 0.85rem;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 4px;
+transition: all 0.3s ease;
+box-shadow: 0 1px 3px rgba(255, 152, 0, 0.3);
+}
+#deadlines-btn:hover {
+transform: translateY(-1px);
+box-shadow: 0 2px 5px rgba(255, 152, 0, 0.4);
+}
+#deadlines-btn.active {
+background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+box-shadow: 0 0 0 2px var(--accent-color);
+}
+#deadlines-btn i {
+font-size: 0.9rem;
+}
+#boards-list {
+list-style: none;
+padding: 0;
+margin: 0;
+flex-grow: 1;
+overflow-y: auto;
+min-height: 150px;
+}
+#boards-list li {
+padding: 6px;
+margin-bottom: 2px;
+background: var(--card-bg);
+border-radius: 4px;
+cursor: pointer;
+border: 1px solid var(--border-color);
+transition: all 0.2s;
+overflow: hidden;
+}
+#boards-list li:hover {
+background: var(--accent-hover);
+color: white;
+}
+#boards-list li.active {
+background: var(--accent-color);
+border-color: var(--accent-color);
+color: white;
+font-weight: bold;
+}
+/* Папки - компактные */
+#boards-list li.folder-item {
+background: var(--folder-bg);
+display: flex;
+flex-direction: column;
+gap: 2px;
+padding: 6px;
+}
+#boards-list li .folder-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+gap: 4px;
+}
+#boards-list li .folder-name {
+flex-grow: 1;
+cursor: pointer;
+padding: 2px 4px;
+border-radius: 2px;
+transition: background 0.2s;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+color: var(--text-color);
+font-weight: 600;
+font-size: 0.85rem;
+}
+#boards-list li .folder-name:hover {
+background: rgba(0,0,0,0.05);
+}
+.dark-theme #boards-list li .folder-name:hover {
+background: rgba(255,255,255,0.05);
+}
+#boards-list li .folder-expand-icon {
+margin: 0 2px;
+cursor: pointer;
+user-select: none;
+width: 12px;
+text-align: center;
+flex-shrink: 0;
+color: var(--text-color);
+font-size: 0.7rem;
+}
+#boards-list li .folder-actions {
+display: flex;
+gap: 2px;
+flex-shrink: 0;
+}
+#boards-list li .folder-delete-btn {
+background: none;
+border: none;
+font-size: 0.85rem;
+cursor: pointer;
+color: var(--danger-color);
+padding: 2px;
+border-radius: 2px;
+transition: background 0.2s;
+flex-shrink: 0;
+width: 20px;
+height: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+#boards-list li .folder-delete-btn:hover {
+background: rgba(217, 83, 79, 0.1);
+}
+.dark-theme #boards-list li .folder-delete-btn:hover {
+background: rgba(229, 62, 62, 0.2);
+}
+#boards-list li ul.folder-boards {
+list-style: none;
+padding-left: 12px;
+margin-top: 4px;
+width: 100%;
+border-left: 2px solid var(--border-color);
+}
+#boards-list li ul.folder-boards li {
+font-size: 0.8rem;
+padding: 3px;
+background: var(--folder-board-bg) !important;
+border: 1px solid var(--border-color);
+margin-top: 2px;
+color: var(--text-color);
+margin-left: 0;
+}
+#boards-list li ul.folder-boards li:hover {
+background: var(--accent-hover) !important;
+color: white;
+}
+#boards-list li ul.folder-boards li.active {
+background: var(--accent-color) !important;
+border-color: var(--accent-color);
+color: white;
+}
+/* Разделитель */
+.boards-divider {
+padding: 4px;
+margin: 4px 0;
+text-align: center;
+background: transparent !important;
+border: none !important;
+cursor: default !important;
+transform: none !important;
+}
+.boards-divider span {
+font-size: 0.7rem;
+color: var(--placeholder-color);
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
+.dark-theme .boards-divider span {
+color: #aaa;
+}
+/* Элементы досок */
+.board-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+gap: 4px;
+}
+.board-name {
+flex-grow: 1;
+cursor: pointer;
+padding: 2px 4px;
+border-radius: 2px;
+transition: background 0.2s;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+min-width: 0;
+color: var(--text-color);
+font-size: 0.85rem;
+}
+.board-name:hover {
+background: rgba(0,0,0,0.05);
+}
+.dark-theme .board-name:hover {
+background: rgba(255,255,255,0.05);
+}
+.board-delete-btn {
+background: none;
+border: none;
+font-size: 0.8rem;
+cursor: pointer;
+color: var(--danger-color);
+padding: 2px;
+border-radius: 2px;
+transition: background 0.2s;
+flex-shrink: 0;
+width: 20px;
+height: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0.7;
+}
+.board-delete-btn:hover {
+background-color: rgba(217, 83, 79, 0.1);
+opacity: 1;
+}
+.dark-theme .board-delete-btn:hover {
+background-color: rgba(229, 62, 62, 0.2);
+}
+/* Для досок внутри папок */
+.folder-boards .board-item {
+padding: 0;
+margin: 0;
+background: transparent;
+border: none;
+}
+.folder-boards .board-name {
+font-size: 0.8rem;
+padding: 1px 2px;
+}
+.folder-boards .board-delete-btn {
+font-size: 0.8rem;
+padding: 1px;
+}
+/* Кнопки сайдбара - компактные */
+.sidebar-buttons {
+display: flex;
+flex-direction: column;
+gap: 4px;
+margin-top: 8px;
+}
+.sidebar-btn {
+width: 100%;
+padding: 8px;
+background: var(--success-color);
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 0.85rem;
+transition: background 0.2s, transform 0.2s;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 4px;
+font-weight: 600;
+}
+.sidebar-btn:hover {
+background: var(--success-hover);
+transform: translateY(-1px);
+}
+#add-folder-btn {
+background: var(--accent-color);
+}
+#add-folder-btn:hover {
+background: var(--accent-hover);
+}
+/* Секция экспорта/импорта - компактная */
+.export-import-section {
+margin-top: 12px;
+padding-top: 8px;
+border-top: 1px solid var(--border-color);
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+.export-btn, .import-btn {
+width: 100%;
+padding: 8px;
+background: linear-gradient(135deg, var(--accent-color), #8a2be2);
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 0.8rem;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 4px;
+transition: all 0.3s ease;
+font-weight: 600;
+}
+.import-btn {
+background: linear-gradient(135deg, var(--success-color), #2ecc71);
+}
+.export-btn:hover {
+background: linear-gradient(135deg, var(--accent-hover), #9b30ff);
+transform: translateY(-1px);
+box-shadow: 0 2px 5px rgba(138, 43, 226, 0.3);
+}
+.import-btn:hover {
+background: linear-gradient(135deg, var(--success-hover), #27ae60);
+transform: translateY(-1px);
+box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
+}
+.telegram-btn {
+background: linear-gradient(135deg, #0088cc, #34b7f1);
+margin-top: 4px;
+}
+.telegram-btn:hover {
+background: linear-gradient(135deg, #0077b5, #2aa8e0);
+transform: translateY(-1px);
+}
+/* Основной контент */
+.main-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+overflow: hidden;
+padding: var(--compact-padding);
+background: var(--main-bg);
+min-height: 0;
+min-width: 0;
+width: 100%;
+max-width: 100%;
+transition: background-color 0.3s;
+}
+.board-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 12px;
+flex-shrink: 0;
+padding: 8px 12px;
+background: var(--card-bg);
+border-radius: 6px;
+box-shadow: 0 1px 3px var(--shadow-color);
+}
+.board-title {
+text-align: left;
+cursor: pointer;
+padding: 8px 12px;
+background: var(--accent-color);
+color: white;
+border-radius: 4px;
+font-size: 1.1rem;
+flex-grow: 1;
+margin-right: 8px;
+transition: background 0.2s;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+min-width: 0;
+border: none;
+font-weight: 600;
+}
+.board-title:hover {
+background: var(--accent-hover);
+}
+.add-column-btn {
+padding: 8px 12px;
+border-radius: 4px;
+background: var(--success-color);
+color: white;
+border: none;
+font-size: 0.85rem;
+cursor: pointer;
+box-shadow: 0 1px 3px var(--shadow-color);
+transition: background 0.2s, transform 0.2s;
+flex-shrink: 0;
+display: flex;
+align-items: center;
+gap: 4px;
+font-weight: 600;
+}
+.add-column-btn:hover {
+background: var(--success-hover);
+transform: scale(1.05);
+}
+/* Колонки - компактные и с фиксированной высотой */
+.board {
+display: grid;
+grid-auto-flow: column;
+grid-auto-columns: minmax(250px, 1fr);
+gap: 8px;
+overflow-x: auto;
+overflow-y: hidden;
+flex-grow: 1;
+min-height: 0;
+width: 100%;
+padding: 4px;
+align-items: stretch;
+scrollbar-width: thin;
+scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+height: calc(100vh - 120px);
+}
+.column {
+background: var(--column-bg);
+border-radius: 6px;
+padding: 8px;
+display: flex;
+flex-direction: column;
+position: relative;
+box-shadow: 0 2px 4px var(--shadow-color);
+transition: all 0.3s ease;
+height: 100%;
+width: 100%;
+min-width: 250px;
+max-width: 100%;
+border: 1px solid var(--border-color);
+overflow: hidden;
+}
+.column:hover {
+box-shadow: 0 4px 8px var(--shadow-color);
+transform: translateY(-1px);
+}
+.column-header {
+display: flex;
+align-items: center;
+margin-bottom: 8px;
+padding-bottom: 6px;
+border-bottom: 1px solid var(--border-color);
+flex-shrink: 0;
+}
+.column-title {
+flex: 1;
+text-align: left;
+cursor: pointer;
+padding: 4px 6px;
+border-radius: 3px;
+font-size: 1rem;
+font-weight: 600;
+transition: background 0.2s;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+min-width: 0;
+color: var(--text-color);
+}
+.column-title:hover {
+background: rgba(0,0,0,0.05);
+}
+.dark-theme .column-title:hover {
+background: rgba(255,255,255,0.05);
+}
+.delete-column-btn {
+background: none;
+border: none;
+color: var(--danger-color);
+font-size: 1.1rem;
+cursor: pointer;
+padding: 2px 4px;
+border-radius: 2px;
+margin-left: 4px;
+transition: background 0.2s;
+flex-shrink: 0;
+width: 28px;
+height: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.delete-column-btn:hover {
+background: rgba(217, 83, 79, 0.1);
+}
+.dark-theme .delete-column-btn:hover {
+background: rgba(229, 62, 62, 0.2);
+}
+.tasks {
+flex-grow: 1;
+min-height: 100px;
+padding: 2px 0;
+background-color: transparent;
+overflow-y: auto;
+overflow-x: hidden;
+display: flex;
+flex-direction: column;
+gap: 4px;
+position: relative;
+max-height: calc(100vh - 180px);
+scroll-behavior: smooth;
+}
+.tasks::-webkit-scrollbar {
+width: 4px;
+}
+.tasks::-webkit-scrollbar-track {
+background: var(--scrollbar-track);
+border-radius: 2px;
+}
+.tasks::-webkit-scrollbar-thumb {
+background: var(--scrollbar-thumb);
+border-radius: 2px;
+}
+.tasks::-webkit-scrollbar-thumb:hover {
+background: var(--accent-color);
+}
+/* Задачи - компактные */
+.task {
+background: var(--task-bg);
+padding: 6px;
+margin-bottom: 2px;
+border-radius: 4px;
+box-shadow: 0 1px 2px var(--shadow-color);
+position: relative;
+display: flex;
+flex-direction: column;
+gap: 3px;
+transition: all 0.2s;
+cursor: grab;
+flex-shrink: 0;
+word-wrap: break-word;
+overflow-wrap: break-word;
+max-width: 100%;
+color: var(--text-color);
+border-left: 3px solid transparent;
+min-height: 40px;
+}
+.task:hover {
+transform: translateY(-1px);
+box-shadow: 0 2px 4px var(--shadow-color);
+}
+.task.completed {
+opacity: 0.6;
+}
+.task.completed .task-text {
+text-decoration: line-through;
+color: var(--placeholder-color);
+}
+/* Подсветка по дедлайнам */
+.task.deadline-overdue {
+border-left-color: var(--danger-color);
+background: linear-gradient(to right, rgba(217, 83, 79, 0.1), var(--task-bg));
+animation: pulse-border 2s infinite;
+}
+.task.deadline-today {
+border-left-color: var(--warning-color);
+background: linear-gradient(to right, rgba(255, 193, 7, 0.1), var(--task-bg));
+}
+@keyframes pulse-border {
+0%, 100% { border-left-width: 3px; }
+50% { border-left-width: 4px; }
+}
+.task-content {
+display: flex;
+flex-direction: column;
+gap: 2px;
+width: 100%;
+}
+.task-main-row {
+display: flex;
+align-items: flex-start;
+width: 100%;
+min-width: 0;
+gap: 3px;
+flex-wrap: wrap;
+line-height: 1.2;
+}
+.deadline-row {
+display: flex;
+align-items: center;
+gap: 4px;
+flex-wrap: wrap;
+margin-top: 1px;
+padding-left: 1.2rem;
+min-height: 16px;
+font-size: 0.75rem;
+}
+.subtask-content {
+display: flex;
+flex-direction: column;
+gap: 1px;
+width: 100%;
+}
+.subtask-main-row {
+display: flex;
+align-items: flex-start;
+width: 100%;
+min-width: 0;
+gap: 3px;
+flex-wrap: wrap;
+line-height: 1.2;
+}
+.checkbox {
+appearance: none;
+width: 16px;
+height: 16px;
+border: 2px solid var(--accent-color);
+border-radius: 3px;
+margin-right: 6px;
+margin-top: 0;
+cursor: pointer;
+flex-shrink: 0;
+transition: all 0.2s;
+background: transparent;
+position: relative;
+}
+.checkbox:hover {
+border-color: var(--accent-hover);
+transform: scale(1.05);
+}
+.checkbox:checked {
+background-color: var(--accent-color);
+}
+.checkbox:checked::after {
+content: "✓";
+position: absolute;
+top: -1px;
+left: 2px;
+color: white;
+font-size: 10px;
+font-weight: bold;
+}
+/* Текст задачи - компактный */
+.task-text,
+.subtask-text {
+flex: 1;
+min-width: 0;
+word-break: break-word;
+overflow-wrap: break-word;
+line-height: 1.3;
+padding: 1px 0;
+min-height: 20px;
+display: inline-block;
+font-size: 0.85rem;
+}
+.task-text:hover,
+.subtask-text:hover {
+background: rgba(74, 144, 226, 0.1);
+}
+.dark-theme .task-text:hover,
+.dark-theme .subtask-text:hover {
+background: rgba(66, 153, 225, 0.2);
+}
+/* Иконки календаря и удаления - компактные */
+.task-calendar-btn,
+.subtask-calendar-btn {
+background: none;
+border: none;
+color: var(--accent-color);
+cursor: pointer;
+padding: 2px;
+border-radius: 2px;
+font-size: 0.8rem;
+transition: all 0.2s;
+margin-left: 1px;
+flex-shrink: 0;
+width: 22px;
+height: 22px;
+display: flex;
+align-items: center;
+justify-content: center;
+align-self: flex-start;
+margin-top: 0;
+}
+.task-calendar-btn:hover,
+.subtask-calendar-btn:hover {
+background: rgba(74, 144, 226, 0.1);
+transform: scale(1.05);
+}
+.dark-theme .task-calendar-btn:hover,
+.dark-theme .subtask-calendar-btn:hover {
+background: rgba(66, 153, 225, 0.2);
+}
+/* Индикатор дедлайна - компактный */
+.deadline-indicator {
+display: inline-flex;
+align-items: center;
+gap: 2px;
+font-size: 0.7rem;
+padding: 1px 4px;
+border-radius: 8px;
+background: rgba(74, 144, 226, 0.1);
+color: var(--accent-color);
+flex-shrink: 0;
+font-weight: 500;
+transition: all 0.2s;
+margin: 1px 0;
+}
+.deadline-indicator.overdue {
+background: rgba(217, 83, 79, 0.2);
+color: var(--danger-color);
+animation: pulse 2s infinite;
+}
+.deadline-indicator.today {
+background: rgba(255, 193, 7, 0.2);
+color: var(--warning-color);
+font-weight: bold;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.7; }
+}
+.delete-btn,
+.subtask-delete-btn {
+margin-left: auto;
+background: none;
+border: none;
+font-size: 0.8rem;
+cursor: pointer;
+color: var(--danger-color);
+padding: 2px;
+border-radius: 2px;
+flex-shrink: 0;
+width: 22px;
+height: 22px;
+display: flex;
+align-items: center;
+justify-content: center;
+align-self: flex-start;
+margin-top: 0;
+transition: background 0.2s;
+}
+.delete-btn:hover,
+.subtask-delete-btn:hover {
+background-color: rgba(217, 83, 79, 0.1);
+}
+.dark-theme .delete-btn:hover,
+.dark-theme .subtask-delete-btn:hover {
+background-color: rgba(229, 62, 62, 0.2);
+}
+.subtasks {
+margin-top: 3px;
+padding-left: 1.2rem;
+max-width: 100%;
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+.add-subtask-btn {
+margin-top: 3px;
+font-size: 0.75rem;
+color: var(--accent-color);
+background: none;
+border: none;
+cursor: pointer;
+padding: 3px 4px;
+border-radius: 3px;
+align-self: flex-start;
+transition: background 0.2s;
+flex-shrink: 0;
+display: flex;
+align-items: center;
+gap: 3px;
+}
+.add-subtask-btn:hover {
+background: rgba(74, 144, 226, 0.1);
+}
+.dark-theme .add-subtask-btn:hover {
+background: rgba(66, 153, 225, 0.2);
+}
+.subtask {
+display: flex;
+align-items: flex-start;
+gap: 3px;
+font-size: 0.8rem;
+padding: 3px;
+border-radius: 3px;
+transition: background 0.2s;
+max-width: 100%;
+background: rgba(0,0,0,0.03);
+}
+.dark-theme .subtask {
+background: rgba(255,255,255,0.05);
+}
+.subtask:hover {
+background: rgba(0,0,0,0.05);
+}
+.dark-theme .subtask:hover {
+background: rgba(255,255,255,0.1);
+}
+.task.dragging {
+opacity: 0.6;
+transform: rotate(3deg);
+box-shadow: 0 4px 8px var(--shadow-color);
+cursor: grabbing;
+}
+/* Поля ввода */
+.edit-input {
+font-size: 0.85rem;
+padding: 6px;
+border: 2px solid var(--input-border);
+border-radius: 4px;
+background: var(--input-bg);
+outline: none;
+width: 100%;
+transition: border-color 0.2s, box-shadow 0.2s;
+min-width: 0;
+color: var(--text-color);
+}
+.edit-input:focus {
+border-color: var(--accent-hover);
+box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+.dark-theme .edit-input:focus {
+box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+.task-add-input {
+width: 100%;
+padding: 6px;
+margin-bottom: 3px;
+border: 2px solid var(--input-border);
+border-radius: 4px;
+font-size: 0.85rem;
+}
+.subtask-add-input {
+width: 100%;
+padding: 4px;
+margin-top: 3px;
+border: 2px solid var(--input-border);
+border-radius: 3px;
+font-size: 0.8rem;
+}
+.tasks:empty {
+min-height: 80px;
+}
+.tasks:empty::after {
+content: "Кликните здесь, чтобы добавить задачу";
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+color: var(--placeholder-color);
+font-size: 0.8rem;
+padding: 1rem;
+border: 1px dashed var(--border-color);
+border-radius: 4px;
+margin: 0.25rem 0;
+background: rgba(255, 255, 255, 0.05);
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+pointer-events: none;
+}
+.dark-theme .tasks:empty::after {
+background: rgba(0, 0, 0, 0.2);
+}
+.board::-webkit-scrollbar {
+height: 6px;
+}
+.board::-webkit-scrollbar-track {
+background: var(--scrollbar-track);
+border-radius: 3px;
+}
+.board::-webkit-scrollbar-thumb {
+background: var(--scrollbar-thumb);
+border-radius: 3px;
+}
+.board::-webkit-scrollbar-thumb:hover {
+background: var(--accent-color);
+}
+.board {
+scrollbar-width: thin;
+scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+/* Модальное окно */
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: var(--modal-overlay);
+z-index: 1000;
+align-items: center;
+justify-content: center;
+animation: fadeIn 0.3s ease;
+}
+.modal.show {
+display: flex;
+}
+.modal-content {
+background: var(--main-bg);
+border-radius: 8px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+width: 90%;
+max-width: 350px;
+overflow: hidden;
+transform: translateY(0);
+animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+from {
+transform: translateY(20px);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+.modal-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 12px 16px;
+background: var(--accent-color);
+color: white;
+}
+.modal-header h3 {
+margin: 0;
+font-size: 1rem;
+display: flex;
+align-items: center;
+gap: 4px;
+}
+.close-modal {
+background: none;
+border: none;
+color: white;
+font-size: 1.2rem;
+cursor: pointer;
+padding: 0;
+width: 28px;
+height: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+transition: background 0.2s;
+}
+.close-modal:hover {
+background: rgba(255, 255, 255, 0.2);
+}
+.modal-body {
+padding: 16px;
+}
+#deadline-date {
+width: 100%;
+padding: 8px;
+font-size: 0.85rem;
+border: 1px solid var(--border-color);
+border-radius: 4px;
+background: var(--input-bg);
+color: var(--text-color);
+margin-bottom: 12px;
+transition: border-color 0.2s;
+}
+#deadline-date:focus {
+border-color: var(--accent-color);
+outline: none;
+}
+.date-actions {
+display: flex;
+gap: 8px;
+}
+#clear-deadline,
+#set-deadline {
+flex: 1;
+padding: 8px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.2s;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 4px;
+font-size: 0.85rem;
+}
+.btn-clear {
+background: var(--danger-color);
+color: white;
+}
+.btn-clear:hover {
+background: var(--danger-hover);
+transform: translateY(-1px);
+}
+.btn-set {
+background: var(--success-color);
+color: white;
+}
+.btn-set:hover {
+background: var(--success-hover);
+transform: translateY(-1px);
+}
+/* Модальное окно импорта */
+.import-warning {
+background: rgba(255, 193, 7, 0.1);
+border: 1px solid var(--warning-color);
+border-radius: 4px;
+padding: 8px;
+margin-bottom: 12px;
+display: flex;
+align-items: flex-start;
+gap: 6px;
+}
+.import-warning i {
+color: var(--warning-color);
+font-size: 1.1rem;
+flex-shrink: 0;
+margin-top: 0;
+}
+.import-warning p {
+margin: 0;
+font-size: 0.8rem;
+line-height: 1.3;
+color: var(--text-color);
+}
+.file-upload-area {
+border: 1px dashed var(--border-color);
+border-radius: 4px;
+padding: 1.5rem 1rem;
+text-align: center;
+transition: all 0.3s ease;
+margin-bottom: 12px;
+background: rgba(255, 255, 255, 0.05);
+}
+.dark-theme .file-upload-area {
+background: rgba(255, 255, 255, 0.02);
+}
+.file-upload-area.drag-over {
+border-color: var(--accent-color);
+background: rgba(74, 144, 226, 0.05);
+transform: scale(1.01);
+}
+.file-upload-area i {
+font-size: 2rem;
+color: var(--accent-color);
+margin-bottom: 0.75rem;
+opacity: 0.7;
+}
+.file-upload-area p {
+margin: 0.25rem 0 0.75rem;
+color: var(--text-color);
+font-size: 0.85rem;
+}
+.browse-btn {
+padding: 6px 12px;
+background: var(--accent-color);
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.2s;
+font-size: 0.85rem;
+}
+.browse-btn:hover {
+background: var(--accent-hover);
+transform: translateY(-1px);
+}
+.import-actions {
+display: flex;
+gap: 8px;
+justify-content: flex-end;
+}
+.import-actions button {
+padding: 6px 12px;
+min-width: 100px;
+font-size: 0.85rem;
+}
+/* Анимации */
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.task, .column {
+animation: fadeIn 0.3s ease-out;
+}
+.drop-indicator {
+height: 2px !important;
+background: var(--accent-color) !important;
+margin: 3px 0 !important;
+border-radius: 1px !important;
+animation: pulse 1.5s infinite;
+flex-shrink: 0;
+}
+/* Drag & Drop */
+#boards-list li.drag-over {
+background: rgba(184, 212, 255, 0.5) !important;
+border-color: var(--accent-color) !important;
+transform: scale(1.01);
+transition: all 0.2s;
+}
+.dark-theme #boards-list li.drag-over {
+background: rgba(66, 153, 225, 0.3) !important;
+}
+#boards-list li.folder-item.drag-over {
+background: rgba(197, 217, 240, 0.5) !important;
+}
+.dark-theme #boards-list li.folder-item.drag-over {
+background: rgba(58, 58, 58, 0.8) !important;
+}
+.folder-boards.drag-over {
+min-height: 16px;
+border: 1px dashed var(--accent-color);
+border-radius: 2px;
+margin: 1px 0;
+background: rgba(74, 144, 226, 0.1);
+}
+.dark-theme .folder-boards.drag-over {
+background: rgba(66, 153, 225, 0.2);
+}
+/* Колонки для сроков */
+.deadline-column {
+border-top: 2px solid transparent;
+background: rgba(255, 255, 255, 0.05);
+}
+.deadline-column.with-deadline {
+border-top-color: var(--accent-color);
+}
+.deadline-column.today {
+border-top-color: var(--warning-color);
+}
+.deadline-column.overdue {
+border-top-color: var(--danger-color);
+}
+.task-meta {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-top: 4px;
+font-size: 0.75rem;
+color: var(--placeholder-color);
+flex-wrap: wrap;
+}
+.board-info {
+display: inline-flex;
+align-items: center;
+gap: 2px;
+padding: 1px 4px;
+background: rgba(0,0,0,0.05);
+border-radius: 6px;
+color: var(--text-color);
+}
+.dark-theme .board-info {
+background: rgba(255,255,255,0.05);
+}
+/* Нотификации */
+.notification {
+position: fixed;
+top: 16px;
+right: 16px;
+padding: 8px 12px;
+border-radius: 4px;
+color: white;
+font-weight: 600;
+z-index: 2000;
+display: flex;
+align-items: center;
+gap: 6px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+max-width: 300px;
+font-size: 0.85rem;
+}
+.notification.success {
+background: linear-gradient(135deg, var(--success-color), #27ae60);
+}
+.notification.error {
+background: linear-gradient(135deg, var(--danger-color), #c0392b);
+}
+.notification.warning {
+background: linear-gradient(135deg, var(--warning-color), #f39c12);
+}
+.notification.info {
+background: linear-gradient(135deg, var(--accent-color), #3498db);
+}
+@keyframes slideIn {
+from {
+transform: translateX(100%);
+opacity: 0;
+}
+to {
+transform: translateX(0);
+opacity: 1;
+}
+}
+@keyframes fadeOut {
+from {
+opacity: 1;
+}
+to {
+opacity: 0;
+}
+}
+/* Скачивание файла */
+.download-link {
+display: none;
+}
+/* Адаптивность */
+@media (max-width: 1024px) {
+.sidebar {
+width: 200px;
+}
+.board {
+grid-auto-columns: minmax(220px, 1fr);
+gap: 6px;
+}
+}
+@media (max-width: 768px) {
+body.kanban-app {
+flex-direction: column;
+height: auto;
+min-height: 100vh;
+}
+.sidebar {
+width: 100%;
+height: auto;
+max-height: 40vh;
+border-right: none;
+border-bottom: 1px solid var(--border-color);
+}
+.main-content {
+height: auto;
+min-height: 60vh;
+}
+.board {
+grid-auto-columns: minmax(200px, 1fr);
+gap: 4px;
+padding: 2px;
+height: calc(100vh - 150px);
+}
+.column {
+min-width: 200px;
+padding: 6px;
+}
+.notification {
+top: 8px;
+right: 8px;
+left: 8px;
+max-width: none;
+}
+.file-upload-area {
+padding: 1rem 0.75rem;
+}
+.import-actions {
+flex-direction: column;
+}
+.import-actions button {
+width: 100%;
+}
+/* Мобильный вид - для раздела сроков */
+.deadline-column {
+    grid-auto-columns: 100% !important;
+    width: 100% !important;
+}
+}
+@media (max-width: 480px) {
+body.kanban-app {
+font-size: 13px;
+}
+.sidebar {
+padding: 6px;
+}
+.main-content {
+padding: 6px;
+}
+.board-header {
+flex-direction: column;
+gap: 8px;
+align-items: stretch;
+}
+.board-title {
+margin-right: 0;
+text-align: center;
+padding: 6px 8px;
+font-size: 1rem;
+}
+.add-column-btn {
+width: 100%;
+justify-content: center;
+padding: 6px 8px;
+}
+.board {
+grid-auto-columns: 1fr;
+height: calc(100vh - 140px);
+}
+.column {
+min-width: 100%;
+}
+.modal-content {
+width: 95%;
+margin: 8px;
+max-width: 300px;
+}
+.date-actions {
+flex-direction: column;
+}
+/* Адаптация кнопок для мобильных устройств */
+.sidebar-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--sidebar-bg);
+    padding: 8px;
+    border-top: 1px solid var(--border-color);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.sidebar-buttons:not(.mobile-buttons) {
+    display: none;
+}
+/* Адаптация колонок для мобильных устройств */
+.column {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+/* Адаптация раздела "Сроки" для мобильных устройств */
+.deadline-column {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+/* Адаптация кнопок раздела "Сроки" */
+#deadlines-btn {
+    position: fixed;
+    bottom: 48px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+}
+}
+/* Улучшения для темной темы */
+.dark-theme ::-webkit-scrollbar-track {
+background: var(--scrollbar-track);
+}
+.dark-theme ::-webkit-scrollbar-thumb {
+background: var(--scrollbar-thumb);
+}
+.dark-theme ::-webkit-scrollbar-thumb:hover {
+background: var(--accent-color);
+}
+/* Placeholder */
+input::placeholder,
+.task-add-input::placeholder,
+.subtask-add-input::placeholder {
+color: var(--placeholder-color);
+opacity: 0.7;
+font-size: 0.85rem;
+}
+/* Улучшение видимости в темной теме */
+.dark-theme #boards-list li:not(.active):hover {
+background: rgba(66, 153, 225, 0.3);
+color: white;
+}
+/* Для пустого состояния досок */
+.empty-state {
+text-align: center;
+padding: 2rem 1rem;
+color: var(--placeholder-color);
+}
+.empty-state i {
+font-size: 2rem;
+margin-bottom: 0.75rem;
+opacity: 0.5;
+}
+.empty-state h3 {
+margin-bottom: 0.25rem;
+color: var(--text-color);
+font-size: 1rem;
+}
+.empty-state p {
+margin-bottom: 1rem;
+font-size: 0.85rem;
+}
+/* Индикатор загрузки */
+.loading {
+opacity: 0.5;
+pointer-events: none;
+}
+.loading::after {
+content: "";
+position: absolute;
+top: 50%;
+left: 50%;
+width: 24px;
+height: 24px;
+border: 2px solid var(--border-color);
+border-top-color: var(--accent-color);
+border-radius: 50%;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+/* ==================== TELEGRAM БОТ СТИЛИ (компактные) ==================== /
+/ Стили для модального окна Telegram */
+.telegram-settings {
+max-height: 70vh;
+overflow-y: auto;
+padding-right: 4px;
+}
+.telegram-settings::-webkit-scrollbar {
+width: 4px;
+}
+.telegram-settings::-webkit-scrollbar-track {
+background: var(--scrollbar-track);
+border-radius: 2px;
+}
+.telegram-settings::-webkit-scrollbar-thumb {
+background: var(--scrollbar-thumb);
+border-radius: 2px;
+}
+.telegram-instruction {
+background: rgba(74, 144, 226, 0.1);
+border: 1px solid var(--accent-color);
+border-radius: 4px;
+padding: 8px;
+margin-bottom: 12px;
+font-size: 0.8rem;
+line-height: 1.3;
+}
+.telegram-instruction h4 {
+margin-top: 0;
+margin-bottom: 6px;
+color: var(--accent-color);
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 0.9rem;
+}
+.telegram-instruction ol {
+margin: 0;
+padding-left: 1.2rem;
+}
+.telegram-instruction li {
+margin-bottom: 4px;
+}
+.telegram-instruction code {
+background: rgba(0, 0, 0, 0.1);
+padding: 1px 3px;
+border-radius: 2px;
+font-family: monospace;
+font-size: 0.8em;
+color: var(--text-color);
+}
+.dark-theme .telegram-instruction code {
+background: rgba(255, 255, 255, 0.1);
+}
+/* Форма настроек */
+.settings-form {
+margin-bottom: 12px;
+}
+.form-group {
+margin-bottom: 8px;
+display: flex;
+align-items: center;
+gap: 4px;
+flex-wrap: wrap;
+}
+.form-group label {
+font-weight: 600;
+color: var(--text-color);
+min-width: 100px;
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 0.85rem;
+}
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="time"] {
+flex: 1;
+min-width: 180px;
+padding: 6px;
+border: 1px solid var(--border-color);
+border-radius: 4px;
+background: var(--input-bg);
+color: var(--text-color);
+font-size: 0.85rem;
+}
+.form-group input:focus {
+border-color: var(--accent-color);
+outline: none;
+}
+.toggle-visibility {
+background: var(--accent-color);
+color: white;
+border: none;
+border-radius: 4px;
+padding: 6px;
+cursor: pointer;
+transition: background 0.2s;
+flex-shrink: 0;
+font-size: 0.85rem;
+}
+.toggle-visibility:hover {
+background: var(--accent-hover);
+}
+.secondary-btn {
+background: var(--warning-color);
+color: white;
+border: none;
+border-radius: 4px;
+padding: 6px 8px;
+cursor: pointer;
+font-size: 0.8rem;
+font-weight: 600;
+transition: all 0.2s;
+display: inline-flex;
+align-items: center;
+gap: 4px;
+flex-shrink: 0;
+}
+.secondary-btn:hover {
+background: var(--warning-hover);
+transform: translateY(-1px);
+}
+/* Настройки уведомлений */
+.notification-settings {
+margin: 12px 0;
+padding: 8px;
+background: var(--card-bg);
+border-radius: 4px;
+border: 1px solid var(--border-color);
+}
+.notification-settings h4 {
+margin-top: 0;
+margin-bottom: 8px;
+color: var(--text-color);
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 0.9rem;
+}
+.setting-item {
+margin-bottom: 8px;
+padding-bottom: 8px;
+border-bottom: 1px solid var(--border-color);
+}
+.setting-item:last-child {
+margin-bottom: 0;
+padding-bottom: 0;
+border-bottom: none;
+}
+.setting-item label {
+display: flex;
+align-items: center;
+gap: 4px;
+margin-bottom: 6px;
+font-weight: 600;
+color: var(--text-color);
+cursor: pointer;
+font-size: 0.85rem;
+}
+.setting-item input[type="checkbox"] {
+width: 16px;
+height: 16px;
+cursor: pointer;
+}
+.frequency-settings {
+display: flex;
+align-items: center;
+gap: 6px;
+flex-wrap: wrap;
+margin-left: 1.5rem;
+}
+.frequency-settings label {
+margin-bottom: 0;
+font-weight: normal;
+font-size: 0.8rem;
+}
+.frequency-settings select {
+padding: 4px;
+border: 1px solid var(--border-color);
+border-radius: 4px;
+background: var(--input-bg);
+color: var(--text-color);
+cursor: pointer;
+min-width: 120px;
+font-size: 0.8rem;
+}
+.frequency-settings select:focus {
+border-color: var(--accent-color);
+outline: none;
+}
+.time-unit {
+color: var(--placeholder-color);
+font-size: 0.8rem;
+}
+/* Информация о боте */
+.bot-info {
+background: rgba(52, 183, 241, 0.1);
+border: 1px solid #34b7f1;
+border-radius: 4px;
+padding: 8px;
+margin: 12px 0;
+}
+.bot-info h4 {
+margin-top: 0;
+margin-bottom: 6px;
+color: #0088cc;
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 0.9rem;
+}
+.bot-info ul {
+margin: 0;
+padding-left: 1.2rem;
+}
+.bot-info li {
+margin-bottom: 4px;
+color: var(--text-color);
+display: flex;
+align-items: flex-start;
+gap: 4px;
+font-size: 0.8rem;
+}
+.bot-info li i {
+color: #28a745;
+margin-top: 1px;
+flex-shrink: 0;
+font-size: 0.8rem;
+}
+/* Статус подключения */
+.test-connection {
+display: flex;
+align-items: center;
+gap: 8px;
+margin: 8px 0;
+flex-wrap: wrap;
+}
+#connection-status {
+padding: 4px 6px;
+border-radius: 4px;
+font-size: 0.8rem;
+font-weight: 600;
+}
+#connection-status.connected {
+background: rgba(40, 167, 69, 0.2);
+color: var(--success-color);
+}
+#connection-status.disconnected {
+background: rgba(220, 53, 69, 0.2);
+color: var(--danger-color);
+}
+#connection-status.checking {
+background: rgba(255, 193, 7, 0.2);
+color: var(--warning-color);
+}
+/* Действия Telegram */
+.telegram-actions {
+display: flex;
+gap: 8px;
+justify-content: flex-end;
+padding-top: 8px;
+border-top: 1px solid var(--border-color);
+}
+.telegram-actions button {
+padding: 6px 12px;
+min-width: 150px;
+font-size: 0.85rem;
+}
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+.form-group {
+flex-direction: column;
+align-items: stretch;
+}
+.form-group label {
+min-width: auto;
+margin-bottom: 4px;
+}
+.form-group input,
+.form-group button {
+width: 100%;
+}
+.frequency-settings {
+margin-left: 0;
+flex-direction: column;
+align-items: flex-start;
+}
+.telegram-actions {
+flex-direction: column;
+}
+.telegram-actions button {
+width: 100%;
+}
+}
+@media (max-width: 480px) {
+.telegram-instruction ol {
+padding-left: 1rem;
+}
+.bot-info ul {
+padding-left: 1rem;
+}
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="time"] {
+min-width: 100%;
+}
+/* Мобильная адаптация для раздела "Сроки" */
+.deadline-column {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+/* Мобильная адаптация для кнопок */
+.sidebar-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--sidebar-bg);
+    padding: 8px;
+    border-top: 1px solid var(--border-color);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.sidebar-buttons:not(.mobile-buttons) {
+    display: none;
+}
+}
+/* Оптимизация для большого количества задач */
+.task.compact-task {
+min-height: 35px;
+padding: 4px;
+margin-bottom: 1px;
+}
+.subtask.compact-subtask {
+min-height: 30px;
+padding: 2px;
+margin-bottom: 1px;
+font-size: 11px;
+}
+/* Виртуальный скроллинг */
+.virtual-scroll-container {
+position: relative;
+overflow-y: auto;
+overflow-x: hidden;
+will-change: transform;
+}
+.virtual-scroll-content {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+will-change: transform;
+}
+/* Оптимизированный рендеринг для множества задач */
+.tasks.high-density .task {
+margin-bottom: 1px;
+padding: 3px;
+font-size: 12px;
+}
+.tasks.high-density .task .task-main-row {
+gap: 2px;
+}
+.tasks.high-density .task .deadline-row {
+font-size: 11px;
+padding-left: 1rem;
+}
+.tasks.high-density .checkbox {
+width: 14px;
+height: 14px;
+margin-right: 4px;
+}
+.tasks.high-density .subtasks {
+padding-left: 1rem;
+max-height: 150px;
+overflow-y: auto;
+}
+.tasks.high-density .subtask {
+font-size: 11px;
+padding: 2px;
+}
+/* Кнопка сворачивания подзадач */
+.toggle-subtasks-btn {
+background: none;
+border: none;
+color: var(--accent-color);
+cursor: pointer;
+padding: 1px 4px;
+font-size: 10px;
+border-radius: 2px;
+transition: background 0.2s;
+}
+.toggle-subtasks-btn:hover {
+background: rgba(74, 144, 226, 0.1);
+}
+/* Индикатор количества задач */
+.task-count-badge {
+background: var(--accent-color);
+color: white;
+font-size: 10px;
+padding: 1px 4px;
+border-radius: 10px;
+margin-left: 4px;
+font-weight: bold;
+}
+/* Постраничная навигация для очень большого количества задач */
+.tasks-pagination {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 4px;
+margin-top: 8px;
+padding: 4px;
+border-top: 1px solid var(--border-color);
+font-size: 12px;
+}
+.tasks-pagination button {
+padding: 2px 6px;
+border: 1px solid var(--border-color);
+background: var(--card-bg);
+color: var(--text-color);
+border-radius: 3px;
+cursor: pointer;
+font-size: 11px;
+}
+.tasks-pagination button:hover:not(:disabled) {
+background: var(--accent-color);
+color: white;
+border-color: var(--accent-color);
+}
+.tasks-pagination button:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
+/* ==================== МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ РАЗДЕЛА "СРОКИ" ==================== */
+
+/* На мобильных устройствах колонки "Сроки" показываются одна под другой */
+@media (max-width: 768px) {
+    /* Только для раздела сроков */
+    .main-content:has(.deadline-column) .board {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 60vh;
+        overflow-y: auto;
+        padding: 8px 4px;
+    }
+    
+    .main-content:has(.deadline-column) .deadline-column {
+        width: 100% !important;
+        min-width: 100% !important;
+        margin-bottom: 12px;
+        max-height: none;
+    }
+    
+    /* Кнопка "Сроки" фиксируется внизу на мобильных */
+    #deadlines-btn {
+        position: fixed;
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        z-index: 100;
+        width: auto;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    /* Кнопки сайдбара тоже перемещаются вниз на мобильных */
+    .sidebar-buttons {
+        position: fixed;
+        bottom: 60px; /* выше кнопки "Сроки" */
+        left: 12px;
+        right: 12px;
+        background: var(--sidebar-bg);
+        padding: 8px;
+        border-top: 1px solid var(--border-color);
+        z-index: 99;
+        gap: 6px;
+    }
+    
+    /* Скрываем оригинальные кнопки в сайдбаре на мобильных */
+    @media (max-width: 480px) {
+        .sidebar > .sidebar-buttons:not(.mobile-duplicate) {
+            display: none;
+        }
+    }
+}
+
+/* Убедимся, что в десктопной версии всё остаётся как было */
+@media (min-width: 769px) {
+    .main-content:has(.deadline-column) .board {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(250px, 1fr);
+        gap: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: calc(100vh - 120px);
+    }
+    
+    .main-content:has(.deadline-column) .deadline-column {
+        min-width: 250px;
+    }
+    
+    /* Кнопка "Сроки" остаётся в сайдбаре */
+    #deadlines-btn {
+        position: static;
+        width: 100%;
+        padding: 8px;
+    }
+    
+    .sidebar-buttons {
+        position: static;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+}
