@@ -22,8 +22,14 @@
   --card-bg: #fff;
   --task-bg: #fff;
   --column-bg: #eef2f7;
+  --column-opacity: 0.7;
   --folder-bg: #dde6f0;
   --folder-board-bg: #e8edf5;
+  
+  /* Background types */
+  --background-type: 'solid';
+  --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --background-image: none;
   
   /* Effects */
   --shadow-color: rgba(0,0,0,0.1);
@@ -39,6 +45,10 @@
   /* Spacing */
   --compact-padding: 8px;
   --compact-margin: 4px;
+  
+  /* Layout */
+  --column-width: 250px;
+  --smooth-animations: 1;
 }
 
 /* Dark theme variables */
@@ -93,6 +103,23 @@ body.kanban-app {
   font-size: 14px;
   margin: 0;
   padding: 0;
+  background: var(--background-type) == 'gradient' ? var(--background-gradient) : var(--background-type) == 'image' ? var(--background-image) : var(--bg-color);
+}
+
+/* Theme settings specific styles */
+body.kanban-app[data-background-type='gradient'] {
+  background: var(--background-gradient);
+}
+
+body.kanban-app[data-background-type='image'] {
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body.kanban-app[data-background-type='solid'] {
+  background-color: var(--bg-color);
 }
 
 /* Fix scrollbar issue in sidebar */
@@ -105,11 +132,52 @@ body.kanban-app {
 /* Performance improvements */
 .column {
   contain: layout style paint;
+  opacity: var(--column-opacity);
+  min-width: var(--column-width);
+  max-width: var(--column-width);
+  transition: all 0.3s ease;
+  animation: fadeInSlide 0.3s ease-out;
 }
 
 .task {
   content-visibility: auto;
   contain-intrinsic-size: 40px;
+  transition: all 0.2s ease;
+  animation: slideInTask 0.2s ease-out;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInTask {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply smooth animations when enabled */
+body[data-smooth-animations='true'] .column,
+body[data-smooth-animations='true'] .task {
+  transition: all 0.3s ease;
+}
+
+body[data-smooth-animations='false'] .column,
+body[data-smooth-animations='false'] .task {
+  transition: none;
+  animation: none;
 }
 
 /* Dark theme scrollbar */

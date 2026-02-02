@@ -227,6 +227,103 @@
         </div>
     </div>
 
+    <!-- Модальное окно настроек темы -->
+    <div id="theme-settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-palette"></i> Настройки темы и внешнего вида</h3>
+                <button class="close-modal" title="Закрыть">&times;</button>
+            </div>
+            <div class="modal-body theme-settings">
+                <div class="theme-options">
+                    <h4><i class="fas fa-moon"></i> Тема оформления:</h4>
+                    <div class="theme-selector">
+                        <button id="light-theme-btn" class="theme-btn active" data-theme="light">
+                            <i class="fas fa-sun"></i> Светлая
+                        </button>
+                        <button id="dark-theme-btn" class="theme-btn" data-theme="dark">
+                            <i class="fas fa-moon"></i> Темная
+                        </button>
+                        <button id="auto-theme-btn" class="theme-btn" data-theme="auto">
+                            <i class="fas fa-sync-alt"></i> Авто
+                        </button>
+                    </div>
+                </div>
+
+                <div class="appearance-options">
+                    <h4><i class="fas fa-fill-drip"></i> Параметры оформления:</h4>
+                    
+                    <div class="setting-item">
+                        <label for="column-opacity">Прозрачность колонок:</label>
+                        <input type="range" id="column-opacity" min="0.1" max="1" step="0.1" value="0.7" />
+                        <span id="column-opacity-value">70%</span>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="background-type">Тип фона:</label>
+                        <select id="background-type">
+                            <option value="solid">Сплошной цвет</option>
+                            <option value="gradient">Градиент</option>
+                            <option value="image">Изображение</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item" id="background-gradient-option">
+                        <label>Цвета градиента:</label>
+                        <div class="color-pickers">
+                            <div class="color-picker-group">
+                                <label>Начальный цвет:</label>
+                                <input type="color" id="gradient-start-color" value="#f5f7fa" />
+                            </div>
+                            <div class="color-picker-group">
+                                <label>Конечный цвет:</label>
+                                <input type="color" id="gradient-end-color" value="#c3cfe2" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item" id="background-image-option" style="display:none;">
+                        <label for="background-image">Фоновое изображение:</label>
+                        <input type="file" id="background-image" accept="image/*" />
+                    </div>
+                </div>
+
+                <div class="layout-options">
+                    <h4><i class="fas fa-th-large"></i> Параметры макета:</h4>
+                    
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="compact-mode" />
+                            <i class="fas fa-compress-alt"></i> Компактный режим
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="smooth-animations" checked />
+                            <i class="fas fa-play-circle"></i> Плавные анимации
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="column-width">Ширина колонок:</label>
+                        <input type="range" id="column-width" min="200" max="500" step="10" value="250" />
+                        <span id="column-width-value">250px</span>
+                    </div>
+                </div>
+
+                <div class="theme-actions">
+                    <button id="reset-theme-settings" class="btn-clear">
+                        <i class="fas fa-redo"></i> Сбросить настройки
+                    </button>
+                    <button id="apply-theme-settings" class="btn-set">
+                        <i class="fas fa-check"></i> Применить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="src/js/core.js"></script>
     <script src="src/js/telegram.js"></script>
 </body>
